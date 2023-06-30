@@ -1,10 +1,12 @@
 import discord
 from discord.ext import commands
 from discord import Option
+from discord.commands import Option
+from dotenv import load_dotenv
+import os
 
 
 # Discord-Bot-Token einfügen
-TOKEN = 'My Token'
 
 # Präfix für Befehle festlegen
 prefix = '!'
@@ -16,7 +18,7 @@ intents.presences = False
 intents.message_content = True
 
 # Einrichten des Bot-Clients
-bot = commands.Bot(command_prefix=prefix, intents=intents, debug_guilds=[1030650671600504894])
+bot = commands.Bot(command_prefix=prefix, intents=intents, debug_guilds=None)
 
 
 
@@ -531,6 +533,19 @@ wizzard_spells_data = {
     ],
 }
 
+# @bot.slash_command(name="spells")
+# async def spells(ctx):
+#     # Erstellen des Embeds
+#     embed = discord.Embed(title=f"Spell-Liste {name}", color=discord.Color.red())
+    
+#     for level, spells in warlock_spells_data.items():
+#         spell_list = '\n'.join(spells)
+#         embed.add_field(name=level, value=spell_list, inline=False)
+
+#     # Nachricht mit Embed senden
+#     await ctx.send(embed=embed)
+
+
 
 #& Befehl, um alle Warlock-Spells abzurufen
 @bot.command()
@@ -577,9 +592,17 @@ async def bard_spells(ctx):
 
 #New Commands
 
+# Sendet nachricht an bestimmten Channel
+@bot.slash_command()
+async def say(
+    ctx,
+    text:Option(str, "Message"),
+    channel: Option(discord.TextChannel)
+):
+    await channel.send(text)
 
 
-
+# New Commands
 
 
 # Event beim Start des Bots
@@ -588,4 +611,4 @@ async def on_ready():
     print(f'Bot ist bereit: {bot.user.name} - {bot.user.id}')
 
 # Bot-Client starten
-bot.run(TOKEN)
+bot.run("MTA5MTEzNDIwNzM5ODUxNDc5OA.G4bm8c.UiA28xml-bo5B6qYRUhS-DpP32sU3eqsbnH6ag")
